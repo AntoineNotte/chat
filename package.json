@@ -4,7 +4,7 @@
   "description": "<p>Réalisation d'un chat type messenger/discord à partir de NodeJS, JavaScript, HTML et CSS.</p>",
   "main": "index.js",
   "scripts": {
-    "watch":"nodemon ./assets/js/index.js",
+    "watch": "nodemon ./assets/js/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

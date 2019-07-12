@@ -20,6 +20,12 @@ app.get('/', function (req, res) {
 io.on('connection',socket => {
     console.log('User connected');
 
+    Message.find().then(data => {
+        socket.emit("allMessage",data)
+    }).catch(err => {
+        console.log(err)
+    })
+
     socket.broadcast.emit('hi');
     socket.on('disconnect', function () {
         console.log('User disconnected');
@@ -28,7 +34,7 @@ io.on('connection',socket => {
         const newMessage = new Message({
             username:"test",
             message:msg,
-            date: new Date()
+            date:new Date(),
         })
 
         newMessage.save().then(data => {
@@ -36,13 +42,12 @@ io.on('connection',socket => {
         }).catch(err => {
             console.log("error")
         })
-    });
 
-    socket.on('chat message', function (msg) {
-        io.emit('chat message', msg);
+        io.emit('chat message',msg);
     });
 })
 
 http.listen(3000, function () {
     console.log('listening on *:3000');
 });
+

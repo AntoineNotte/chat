@@ -7,18 +7,16 @@ const mongoose = require("mongoose");
 const Message = require("./table/message");
 
 
-mongoose.connect("mongodb+srv://Anto:becode1234@cluster0-d07l5.mongodb.net/Chat?retryWrites=true&w=majority",{
+mongoose.connect("mongodb+srv://Anakroone:BQ5K10wME0lZ6DPy@cluster0-6w1wl.mongodb.net/test?retryWrites=true&w=majority",{
     useNewUrlParser:true
 })
-
-
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection',socket => {
-    console.log('User connected');
+    console.log('Utilisateur connecté');
 
     Message.find().then(data => {
         socket.emit("allMessage",data)
@@ -50,4 +48,3 @@ io.on('connection',socket => {
 http.listen(3000, function () {
     console.log('listening on *:3000');
 });
-

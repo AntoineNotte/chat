@@ -58,26 +58,41 @@
                 let socket = io();
                 let username = prompt('Pseudo');
                 socket.emit('username', username);
+                console.log(username)
                 $(function () {
-                    var socket = io();
+                    let socket = io();
                     $('form').submit(function (e) {
                         e.preventDefault(); // prevents page reloading
-                        socket.emit('chat message', $('#m').val());
+                        socket.emit('chat message',{
+                            user:username,
+                            message: $('#m').val(),
+                            date:new Date()
+                        });
                         $('#m').val('');
                         return false;
                     });
-                    socket.on('chat message', function (data) {
-                        $('#messages').append($('<li>').text(`[${new Date(data.createdAt).toLocaleTimeString()}]${data.username}: ${data.message}`));
-                    });
-                    socket.on("allMessage", data => {
-                        for (let i = 0; i < data.length; i++) {
-                            let msg =
-                                `${data[i].username} \n ${data[i].message} \n ${new Date(data[i].date).toLocaleString("fr-FR")}`
-                            $('#messages').append($('<li>').text(msg));
-                            console.log(data[i])
-                        }
-                    })
                 });
+                socket.on('chat message', function (data) {
+                    console.log(data)
+                    $('#messages').append($('<li>').text(`${new Date(data.date).toLocaleString("fr-FR",{
+                        weekday:"long",
+                        day:"numeric",
+                        month:"long",
+                        year:"numeric",
+                        hour:"2-digit",
+                        minute:"2-digit",
+                        second:"2-digit"
+                    })} \n${data.username}: ${data.message}`));
+                });
+                socket.on("allMessage", data => {
+                    console.log('d,qiod as  ')
+                    for (let i = 0; i < data.length; i++) {
+                        let msg =
+                            `${data[i].username} \n ${data[i].message} \n ${new Date(data[i].date).toLocaleString("fr-FR")}`
+                        $('#messages').append($('<li>').text(msg));
+                        console.log(data[i])
+                    }
+                })
             </script>
             <!-- The core Firebase JS SDK is always required and must be listed first -->
             <script src="/__/firebase/6.3.0/firebase-app.js"></script>

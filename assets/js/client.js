@@ -1,5 +1,3 @@
-
-
 let firebaseConfig = {
     apiKey: "AIzaSyC3WMGi771TnqQHlXYsL-plwXl0iNIi6D8",
     authDomain: "chat-nodejs-f520b.firebaseapp.com",
@@ -16,13 +14,13 @@ function login() {
     let provider = new firebase.auth.GithubAuthProvider();
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
-    let token = result.credential.accessToken;
-    let user = result.user;
+      let token = result.credential.accessToken;
+      let user = result.user;
 
-    console.log(user);
+      console.log(user);
     }).catch(function(error) {
-    let errorMessage = error.message;
-    console.log(errorMessage);
+      let errorMessage = error.message;
+      console.log(errorMessage);
 
     });
 

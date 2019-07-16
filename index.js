@@ -22,6 +22,8 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection',socket => {
+    socket.on('username', function(username) {
+        console.log(username + 'connecté');
     console.log('Utilisateur connecté');
 
     Message.find().then(data => {
@@ -29,10 +31,10 @@ io.on('connection',socket => {
     }).catch(err => {
         console.log(err)
     })
-
+})
     socket.broadcast.emit('hi');
-    socket.on('disconnect', function () {
-        console.log('Utiisateur déconnecté');
+    socket.on('disconnect', function (username) {
+        console.log(username + 'déconnecté');
     });
     socket.on('chat message', function (msg) {
         const newMessage = new Message({
@@ -80,4 +82,4 @@ function login() {
 
 }   
 /*$('#log').on ('click', login);console.log('Ecoute le port *:5000');*/
-});
+})

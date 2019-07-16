@@ -23,10 +23,8 @@ app.get('/', function (req, res) {
 
 io.on('connection',socket => {
     socket.on('username', function(username) {
-        console.log(username + 'connecté');
-    console.log('Utilisateur connecté');
-
-    Message.find().then(data => {
+        console.log(username + ' connecté');
+        Message.find().then(data => {
         socket.emit("allMessage",data)
     }).catch(err => {
         console.log(err)
@@ -34,22 +32,24 @@ io.on('connection',socket => {
 })
     socket.broadcast.emit('hi');
     socket.on('disconnect', function (username) {
-        console.log(username + 'déconnecté');
+        console.log(username + ' déconnecté');
     });
     socket.on('chat message', function (msg) {
         const newMessage = new Message({
-            username:'test',
-            message:msg,
-            date:new Date(),
+            username:'user',
+            message:msg
         })
 
         newMessage.save().then(data => {
+            io.emit('chat message',data);
+            console.log(data)
+
             console.log("Succès")
         }).catch(err => {
             console.log("Erreur")
         })
 
-        io.emit('chat message',msg);
+        
     });
 })
 

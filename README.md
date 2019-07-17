@@ -22,8 +22,8 @@
 
 # Personnes ayant travaillé sur le projet
 
-* [Antoine Notte]()
-* [Christophe Dejaiffe]()
+* [Antoine Notte](https://github.com/AntoineNotte)
+* [Christophe Dejaiffe](https://github.com/christophedejaiffe)
 * [Maxim Lopez](https://github.com/MaximLopez)
 
 <p>Alors en formation chez BeCode.</p>
